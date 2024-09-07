@@ -60,6 +60,7 @@ const SettingsTab = (props: Props) => {
         },
       },
     });
+    // console.log("HI");
   };
 
   const handleChangeCustomValues = (e: any) => {

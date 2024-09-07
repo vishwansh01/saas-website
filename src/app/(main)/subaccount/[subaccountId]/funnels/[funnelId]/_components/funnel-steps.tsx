@@ -120,6 +120,7 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
                           key={page.id}
                           onClick={() => setClickedPage(page)}
                         >
+                          {" "}
                           <FunnelStepCard
                             funnelPage={page}
                             index={idx}

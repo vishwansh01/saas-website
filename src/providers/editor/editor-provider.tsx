@@ -192,6 +192,7 @@ const editorReducer = (
           currentIndex: updatedHistoryWithUpdate.length - 1,
         },
       };
+      // console.log(updatedEditor);
       return updatedEditor;
 
     case "DELETE_ELEMENT":
@@ -396,6 +397,8 @@ export const useEditor = () => {
   if (!context) {
     throw new Error("useEditor Hook must be used within the editor Provider");
   }
+  // console.log("HI");
+  // console.log(context);
   return context;
 };
 

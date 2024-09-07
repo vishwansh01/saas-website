@@ -10,6 +10,7 @@ const TabList = (props: Props) => {
       <TabsTrigger
         value="Settings"
         className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+        asChild
       >
         <SettingsIcon />
       </TabsTrigger>
