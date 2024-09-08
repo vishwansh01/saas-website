@@ -23,6 +23,7 @@ type Props = {
 };
 
 const ContactFormComponent = (props: Props) => {
+  console.log("in it");
   const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor();
   const router = useRouter();
 
@@ -69,7 +70,7 @@ const ContactFormComponent = (props: Props) => {
   const onFormSubmit = async (
     values: z.infer<typeof ContactUserFormSchema>
   ) => {
-    if (!state.editor.liveMode) return;
+    if (!state.editor.liveMode && !state.editor.previewMode) return;
 
     try {
       const response = await upsertContact({

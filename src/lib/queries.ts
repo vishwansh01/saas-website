@@ -833,7 +833,7 @@ export const getFunnel = async (funnelId: string) => {
       },
     },
   });
-
+  // console.log(funnel);
   return funnel;
 };
 

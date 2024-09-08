@@ -7,6 +7,7 @@ import React from "react";
 import { v4 } from "uuid";
 import Recursive from "./recursive";
 import { Trash } from "lucide-react";
+import { flushSync } from "react-dom";
 
 type Props = { element: EditorElement };
 
@@ -155,14 +156,16 @@ const Container = ({ element }: Props) => {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    // console.log(e.dataTransfer);
+    // console.log(e.dataTransfer.getData("componentType"));
   };
 
   const handleDragStart = (e: React.DragEvent, type: string) => {
     // e.stopPropagation();
     if (type === "__body") return;
+    // flushSync(() => {
     e.dataTransfer.setData("componentType", type);
-    console.log(e.dataTransfer.getData("componentType"));
+    // });
+    // console.log(e.dataTransfer.getData("componentType"));
   };
 
   const handleOnClickBody = (e: React.MouseEvent) => {
