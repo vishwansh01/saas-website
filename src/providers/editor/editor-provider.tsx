@@ -13,7 +13,7 @@ export type EditorElement = {
   type: EditorBtns;
   content:
     | EditorElement[]
-    | { href?: string; innerText?: string; src?: string };
+    | { href: string | ""; innerText?: string; src?: string };
 };
 
 export type Editor = {

@@ -4,7 +4,7 @@ import { EditorBtns } from "@/lib/constants";
 import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
 import clsx from "clsx";
 import { Trash } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 
 type Props = {
@@ -14,6 +14,15 @@ type Props = {
 const VideoComponent = (props: Props) => {
   const { dispatch, state } = useEditor();
   const styles = props.element.styles;
+  const [lin, setLin] = useState("");
+  useEffect(() => {
+    // if () {
+    const a = JSON.stringify(props.element.content);
+    const gg = a.split(`.com/watch?v=`)[1].split(`"`)[0];
+    console.log(gg);
+    setLin(gg);
+    // }
+  }, [props.element]);
 
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     e.stopPropagation();
@@ -23,7 +32,7 @@ const VideoComponent = (props: Props) => {
     // });
     // console.log(e.dataTransfer.getData("componentType"));
   };
-
+  // console.log("gg=", typeof props.element.content);
   const handleOnClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     console.log("Clicked");
@@ -69,9 +78,9 @@ const VideoComponent = (props: Props) => {
         <iframe
           width={props.element.styles.width || "560"}
           height={props.element.styles.height || "315"}
-          src={props.element.content.src}
+          src={`https://www.youtube.com/embed/${lin}`}
           title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         />
       )}
 

@@ -83,7 +83,7 @@ const SettingsTab = (props: Props) => {
       },
     });
   };
-
+  console.log("type", state.editor.selectedElement.type);
   return (
     <Accordion
       type="multiple"
@@ -100,6 +100,18 @@ const SettingsTab = (props: Props) => {
                 <Input
                   id="href"
                   placeholder="https:domain.example.com/pathname"
+                  onChange={handleChangeCustomValues}
+                  value={state.editor.selectedElement.content.href}
+                />
+              </div>
+            )}
+          {state.editor.selectedElement.type === "video" &&
+            !Array.isArray(state.editor.selectedElement.content) && (
+              <div className="flex flex-col gap-2">
+                <p className="text-muted-foreground">Add Video Link</p>
+                <Input
+                  id="href"
+                  placeholder="www.youtube.com"
                   onChange={handleChangeCustomValues}
                   value={state.editor.selectedElement.content.href}
                 />

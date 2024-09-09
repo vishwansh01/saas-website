@@ -1,9 +1,9 @@
-'use client'
-import { getPipelines } from '@/lib/queries'
-import { Prisma } from '@prisma/client'
-import React, { useEffect, useMemo, useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader } from '../ui/card'
-import { Progress } from '../ui/progress'
+"use client";
+import { getPipelines } from "@/lib/queries";
+import { Prisma } from "@prisma/client";
+import React, { useEffect, useMemo, useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
+import { Progress } from "../ui/progress";
 import {
   Select,
   SelectContent,
@@ -12,28 +12,29 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '../ui/select'
+} from "../ui/select";
 
 type Props = {
-  subaccountId: string
-}
+  subaccountId: string;
+};
 
 const PipelineValue = ({ subaccountId }: Props) => {
   const [pipelines, setPipelines] = useState<
     Prisma.PromiseReturnType<typeof getPipelines>
-  >([])
+  >([]);
 
-  const [selectedPipelineId, setselectedPipelineId] = useState('')
-  const [pipelineClosedValue, setPipelineClosedValue] = useState(0)
+  const [selectedPipelineId, setselectedPipelineId] = useState("");
+  const [pipelineClosedValue, setPipelineClosedValue] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getPipelines(subaccountId)
-      setPipelines(res)
-      setselectedPipelineId(res[0]?.id)
-    }
-    fetchData()
-  }, [subaccountId])
+      const res = await getPipelines(subaccountId);
+      setPipelines(res);
+      console.log(res);
+      setselectedPipelineId(res[0]?.id);
+    };
+    fetchData();
+  }, [subaccountId]);
 
   const totalPipelineValue = useMemo(() => {
     if (pipelines.length) {
@@ -44,23 +45,23 @@ const PipelineValue = ({ subaccountId }: Props) => {
             const laneTicketsTotal = lane.Tickets.reduce(
               (totalTickets, ticket) => totalTickets + Number(ticket?.value),
               0
-            )
+            );
             if (currentLaneIndex === array.length - 1) {
-              setPipelineClosedValue(laneTicketsTotal || 0)
-              return totalLanes
+              setPipelineClosedValue(laneTicketsTotal || 0);
+              return totalLanes;
             }
-            return totalLanes + laneTicketsTotal
+            return totalLanes + laneTicketsTotal;
           }, 0) || 0
-      )
+      );
     }
-    return 0
-  }, [selectedPipelineId, pipelines])
+    return 0;
+  }, [selectedPipelineId, pipelines]);
 
   const pipelineRate = useMemo(
     () =>
       (pipelineClosedValue / (totalPipelineValue + pipelineClosedValue)) * 100,
     [pipelineClosedValue, totalPipelineValue]
-  )
+  );
 
   return (
     <Card className="relative w-full xl:w-[350px]">
@@ -81,11 +82,7 @@ const PipelineValue = ({ subaccountId }: Props) => {
             </p>
           </div>
         </div>
-        <Progress
-          color="green"
-          value={pipelineRate}
-          className="h-2"
-        />
+        <Progress color="green" value={pipelineRate} className="h-2" />
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
         <p className="mb-2">
@@ -103,10 +100,7 @@ const PipelineValue = ({ subaccountId }: Props) => {
             <SelectGroup>
               <SelectLabel>Pipelines</SelectLabel>
               {pipelines.map((pipeline) => (
-                <SelectItem
-                  value={pipeline.id}
-                  key={pipeline.id}
-                >
+                <SelectItem value={pipeline.id} key={pipeline.id}>
                   {pipeline.name}
                 </SelectItem>
               ))}
@@ -115,7 +109,7 @@ const PipelineValue = ({ subaccountId }: Props) => {
         </Select>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default PipelineValue
+export default PipelineValue;
