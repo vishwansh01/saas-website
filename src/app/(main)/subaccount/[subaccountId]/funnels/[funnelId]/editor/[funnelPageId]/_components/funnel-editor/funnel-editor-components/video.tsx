@@ -18,7 +18,7 @@ const VideoComponent = (props: Props) => {
   useEffect(() => {
     // if () {
     const a = JSON.stringify(props.element.content);
-    const gg = a.split(`.com/watch?v=`)[1].split(`"`)[0];
+    const gg = a.split(`.com/watch?v=git `)[1].split(`"`)[0];
     console.log(gg);
     setLin(gg);
     // }
