@@ -25,8 +25,10 @@ export const subscriptionCreated = async (
       agencyId: agency.id,
       customerId,
       currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
+      //@ts-ignore
       priceId: subscription.plan.id,
       subscriptionId: subscription.id,
+      //@ts-ignore
       plan: subscription.plan.id,
     };
     const res = await db.subscription.upsert({
