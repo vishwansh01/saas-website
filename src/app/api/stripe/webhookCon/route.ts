@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
-import {
-  subscriptionCreated,
-  subscriptionForSub,
-} from "@/lib/stripe/stripe-actions";
+import { subscriptionCreated } from "@/lib/stripe/stripe-actions";
 
 const stripeWebhookEvents = new Set([
   "product.created",
@@ -18,7 +15,7 @@ const stripeWebhookEvents = new Set([
   "customer.subscription.deleted",
 ]);
 
-export async function POST(req: NextRequest, params: { subAccountId: string }) {
+export async function POST(req: NextRequest) {
   let stripeEvent: Stripe.Event;
   const body = await req.text();
   const sig = headers().get("Stripe-Signature");
@@ -42,16 +39,17 @@ export async function POST(req: NextRequest, params: { subAccountId: string }) {
     if (stripeWebhookEvents.has(stripeEvent.type)) {
       const subscription = stripeEvent.data.object as Stripe.Subscription;
       if (
-        !subscription.metadata.connectAccountPayments &&
-        !subscription.metadata.connectAccountSubscriptions
+        subscription.metadata.connectAccountPayments &&
+        subscription.metadata.connectAccountSubscriptions
       ) {
+        console.log("entered");
         switch (stripeEvent.type) {
           case "customer.subscription.created":
           case "customer.subscription.updated": {
             if (subscription.status === "active") {
-              await subscriptionForSub(
+              await subscriptionCreated(
                 subscription,
-                params.subAccountId as string
+                subscription.customer as string
               );
               console.log("CREATED FROM WEBHOOK 💳", subscription);
             } else {
