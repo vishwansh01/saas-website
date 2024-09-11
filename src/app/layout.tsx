@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import ModalProvider from "@/providers/modal-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnarToaster } from "@/components/ui/sonner";
+import NotWork from "@/components/not-work";
 
 const font = DM_Sans({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ModalProvider>
+            <NotWork />
             {children}
             <Toaster />
             <SonnarToaster position="bottom-left" />
