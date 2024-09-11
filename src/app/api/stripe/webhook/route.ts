@@ -39,8 +39,8 @@ export async function POST(req: NextRequest) {
     if (stripeWebhookEvents.has(stripeEvent.type)) {
       const subscription = stripeEvent.data.object as Stripe.Subscription;
       if (
-        subscription.metadata.connectAccountPayments &&
-        subscription.metadata.connectAccountSubscriptions
+        !subscription.metadata.connectAccountPayments &&
+        !subscription.metadata.connectAccountSubscriptions
       ) {
         console.log("entered");
         switch (stripeEvent.type) {
