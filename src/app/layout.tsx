@@ -31,7 +31,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ModalProvider>
-            <NotWork />
             {children}
             <Toaster />
             <SonnarToaster position="bottom-left" />
