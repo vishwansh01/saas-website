@@ -45,7 +45,7 @@ const Navigation = async ({ user }: Props) => {
         {!u && (
           <Link
             href={"/agency"}
-            className="bg-primary text-white md:p-2 px-4 md:rounded-md hover:bg-primary/80 text-[12] rounded-sm"
+            className="bg-primary text-white md:p-2 px-4 md:rounded-md hover:bg-primary/80 text-[12px] rounded-sm"
           >
             Login
           </Link>
