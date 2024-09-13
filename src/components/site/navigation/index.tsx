@@ -52,13 +52,13 @@ const Navigation = async ({ user }: Props) => {
         )}
         <Link
           href={"https://github.com/vishwansh01/saas-website"}
-          className="bg-primary text-white p-2 px-4 rounded-md hover:bg-primary/80"
+          className="bg-primary text-white md:p-2 md:px-4 md:rounded-md hover:bg-primary/80 text-[12px] sm:p-[4px] px-[4px] rounded-sm"
         >
           Github
         </Link>
         <HoverCard>
           <HoverCardTrigger>
-            <p className="text-white p-2 px-4 rounded-md hover:underline hover:cursor-pointer">
+            <p className="text-white md:p-2 md:px-4 md:rounded-md hover:underline hover:cursor-pointer text-xs">
               Features
             </p>
           </HoverCardTrigger>

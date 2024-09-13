@@ -16,21 +16,23 @@ const VideoComponent = (props: Props) => {
   const styles = props.element.styles;
   const [lin, setLin] = useState("");
   useEffect(() => {
-    // if () {
     const a = JSON.stringify(props.element.content);
-    const gg = a.split(`.com/watch?v=git `)[1].split(`"`)[0];
-    console.log(gg);
-    setLin(gg);
-    // }
+    if (
+      a.split(`.com/watch?v=`)[1] != null ||
+      a.split(`.com/watch?v=`)[1] != undefined
+    ) {
+      if (a.split(`.com/watch?v=`)[1].split(`&`)[0]) {
+        const gg = a.split(`.com/watch?v=`)[1].split(`&`)[0];
+
+        setLin(gg);
+      }
+    }
   }, [props.element]);
 
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     e.stopPropagation();
     if (type === null) return;
-    // flushSync(() => {
     e.dataTransfer.setData("componentType", type);
-    // });
-    // console.log(e.dataTransfer.getData("componentType"));
   };
   // console.log("gg=", typeof props.element.content);
   const handleOnClick = (e: React.MouseEvent) => {
